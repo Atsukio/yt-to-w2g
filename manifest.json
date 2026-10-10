@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "W2G Quick Add",
+  "name": "YouTube to W2G",
   "version": "1.0.0",
   "description": "Hover a YouTube video and add it to your Watch2Gether room playlist in one click.",
   "permissions": ["storage"],
@@ -12,11 +12,6 @@
     {
       "matches": ["https://www.youtube.com/*", "https://m.youtube.com/*", "https://youtu.be/*"],
       "js": ["content/adapters/youtube.js", "content/content.js"],
-      "run_at": "document_idle"
-    },
-    {
-      "matches": ["https://w2g.tv/*"],
-      "js": ["content/w2g-page.js"],
       "run_at": "document_idle"
     }
   ]

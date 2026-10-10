@@ -20,14 +20,11 @@ function say(msg, kind = '') {
 }
 
 async function render() {
-  const { apiKey, streamkey, lastCheck } = await chrome.storage.local.get(['apiKey', 'streamkey', 'lastCheck']);
+  const { apiKey, streamkey } = await chrome.storage.local.get(['apiKey', 'streamkey']);
   $('room').textContent = streamkey ? `Active room: ${streamkey}` : 'No room configured.';
   $('room-input').value = streamkey || '';
   // The key is never shown back; blank means "keep the saved one".
   $('apiKey').placeholder = apiKey ? '•••••• saved (leave blank to keep)' : 'Paste your API key';
-  $('sources').textContent = lastCheck
-    ? `Last duplicate check used: ${lastCheck.used.join(', ') || 'none'}`
-    : '';
 }
 
 $('save').addEventListener('click', async () => {
@@ -55,14 +52,6 @@ $('test').addEventListener('click', async () => {
   const res = await chrome.runtime.sendMessage({ type: 'test' });
   say(res.message, res.ok ? 'ok' : 'error');
   render();
-});
-
-$('clear').addEventListener('click', async () => {
-  const { streamkey, history = {} } = await chrome.storage.local.get(['streamkey', 'history']);
-  if (!streamkey) return say('No room configured.', 'error');
-  delete history[streamkey];
-  await chrome.storage.local.set({ history });
-  say('Local history cleared for this room.', 'ok');
 });
 
 render();

@@ -3,6 +3,7 @@
   if (!adapter) return;
 
   const MARK = 'data-w2g-injected';
+  const RESULT_MS = 3000; // how long the result message stays before resetting
   const STYLE = `
     :host { all: initial; position: absolute; top: 8px; left: 8px; z-index: 2147483647; display: none; }
     button { all: initial; font: 600 12px/1 Arial, sans-serif; color: #fff; background: #e8532b;
@@ -10,12 +11,10 @@
     button:hover { background: #ff6a40; }
     button[data-state="loading"] { opacity: .7; cursor: wait; }
     button[data-state="added"] { background: #2e9d4f; }
-    button[data-state="duplicate"] { background: #c68a00; }
     button[data-state="error"] { background: #c0392b; }
   `;
   const LABELS = {
-    idle: '+ W2G', loading: '…', added: 'Added',
-    duplicate: 'Already in playlist', error: 'Error',
+    idle: '+ W2G', loading: '…', added: 'Added', error: 'Error',
   };
 
   function createButton(target) {
@@ -41,19 +40,27 @@
       const video = adapter.getVideo(target); // read at click time: YouTube recycles elements
       if (!video) return flash('error', 'Could not find the video link.');
       setState('loading');
+      host.keepVisible = true;
       try {
         const res = await chrome.runtime.sendMessage({ type: 'add', ...video });
-        if (res.status === 'error') console.warn('[W2G Quick Add]', res.message);
+        if (res.status === 'error') console.warn('[YouTube to W2G]', res.message);
         flash(res.status, res.message || '');
       } catch {
         flash('error', 'Extension was reloaded. Refresh the page.');
       }
     });
 
+    // Keep the button on screen while the result shows, even if the mouse leaves.
     function flash(state, title) {
       setState(state, title);
+      host.keepVisible = true;
+      host.style.display = 'block';
       clearTimeout(timer);
-      timer = setTimeout(() => setState('idle'), 2000);
+      timer = setTimeout(() => {
+        setState('idle');
+        host.keepVisible = false;
+        if (!target.matches(':hover')) host.style.display = 'none';
+      }, RESULT_MS);
     }
 
     root.host.style.display = 'none';
@@ -67,7 +74,7 @@
     const host = createButton(target);
     target.appendChild(host);
     target.addEventListener('mouseenter', () => { host.style.display = 'block'; });
-    target.addEventListener('mouseleave', () => { host.style.display = 'none'; });
+    target.addEventListener('mouseleave', () => { if (!host.keepVisible) host.style.display = 'none'; });
   }
 
   const scan = () => document.querySelectorAll(adapter.targetSelector).forEach(inject);

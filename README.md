@@ -1,6 +1,6 @@
-# W2G Quick Add
+# YouTube to W2G
 
-Hover a YouTube video, click **+ W2G**, and it's added to your Watch2Gether room's playlist (unless it's already there).
+Hover a YouTube video, click **+ W2G**, and it's added to your Watch2Gether room's playlist.
 
 ## Get your W2G API key
 1. Log in at <https://w2g.tv>.
@@ -10,21 +10,14 @@ Hover a YouTube video, click **+ W2G**, and it's added to your Watch2Gether room
 ## Load the extension
 1. Open `chrome://extensions` and enable **Developer mode**.
 2. Click **Load unpacked** and select this project folder (the one containing `manifest.json`).
-3. Click the extension icon, paste the API key and the room (raw streamkey or `https://w2g.tv/rooms/<key>`), then **Save** and **Test connection**.
-4. Reload any open YouTube / w2g.tv tabs.
+3. Click the extension icon, paste the API key and the room (the raw streamkey or a room URL such as `https://w2g.tv/rooms/<key>` or `https://w2g.tv/room/?room_id=<key>`), then **Save** and **Test connection**.
+4. Reload any open YouTube tabs.
 
-## Duplicate check
-Sources are combined in this order; the popup shows which ones answered on the last add (also logged in the service worker console).
-1. **API read** - the docs list no read endpoint, so the extension probes `GET .../playlist_items` and remembers a failure for 24h. Expected to be unavailable.
-2. **Open room tab** - if a `w2g.tv/rooms/<key>` tab is open (loaded after installing), its page is scanned for YouTube links/thumbnails.
-3. **Local history** - IDs this extension has added per room. Clear it from the popup.
-
-Videos are matched by canonical ID (`yt:VIDEOID`), so `watch?v=`, `youtu.be/`, `/shorts/`, `/embed/`, extra params and timestamps all count as the same video.
+## Duplicates
+The extension does not check whether a video is already in the playlist. The W2G API has no documented way to read a playlist, so every click adds the video.
 
 ## Known limitations
 - The W2G API has no documented way to read a playlist, and the `sync_update` response bodies are undocumented. Success is judged by HTTP status only.
-- The room-tab reader scans page HTML for YouTube IDs because the w2g.tv playlist markup is undocumented. It may miss items, and it may also match the currently playing video. Unverified.
-- Videos added directly in W2G, with no room tab open, can't be detected; they'll be added again.
 - "Test connection" can't validate the API key (every documented endpoint writes); it confirms the room page is reachable.
 - YouTube's markup changes often; selectors live in `content/adapters/youtube.js`.
 - The player button sits top-left and may overlap YouTube's own overlays (e.g. the live/ad badges).
