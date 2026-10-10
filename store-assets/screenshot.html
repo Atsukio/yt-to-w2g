@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; width: 1280px; height: 800px; overflow: hidden; background: #0f0f0f; color: #f1f1f1;
+    font: 14px/1.4 Arial, sans-serif; position: relative; }
+  .bar { height: 56px; display: flex; align-items: center; gap: 16px; padding: 0 24px; border-bottom: 1px solid #272727; }
+  .logo { font-weight: 700; font-size: 18px; letter-spacing: .5px; }
+  .search { flex: 0 0 520px; height: 36px; border: 1px solid #303030; border-radius: 18px; padding: 8px 16px; color: #888; margin-left: 120px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px 20px; padding: 28px 24px; width: 900px; }
+  .card .thumb { position: relative; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; }
+  .card .time { position: absolute; right: 8px; bottom: 8px; background: rgba(0,0,0,.8); padding: 2px 5px; border-radius: 4px; font-size: 12px; }
+  .card .row { display: flex; gap: 10px; margin-top: 10px; }
+  .avatar { width: 36px; height: 36px; border-radius: 50%; background: #3a3a3a; flex: none; }
+  .t { font-weight: 600; font-size: 15px; }
+  .m { color: #aaa; font-size: 12.5px; }
+  .g1 { background: linear-gradient(135deg,#2b5876,#4e4376); }
+  .g2 { background: linear-gradient(135deg,#614385,#516395); }
+  .g3 { background: linear-gradient(135deg,#134e5e,#71b280); }
+  .g4 { background: linear-gradient(135deg,#8e2de2,#4a00e0); }
+  .g5 { background: linear-gradient(135deg,#cb5a3c,#7b2d43); }
+  .g6 { background: linear-gradient(135deg,#355c7d,#c06c84); }
+
+  /* Extension button: same styles as content/content.js */
+  .w2g { position: absolute; top: 8px; left: 8px; font: 600 12px/1 Arial, sans-serif; color: #fff; background: #2e9d4f;
+    padding: 6px 9px; border-radius: 4px; box-shadow: 0 1px 4px rgba(0,0,0,.5); }
+  .w2g.idle { background: #e8532b; }
+
+  /* Popup: same styles as popup/popup.css */
+  .popup { position: absolute; top: 64px; right: 24px; width: 300px; padding: 14px; background: #fff; color: #222;
+    border-radius: 8px; box-shadow: 0 8px 30px rgba(0,0,0,.6); }
+  .popup h1 { font-size: 16px; margin: 0 0 6px; }
+  .popup .room { margin: 0; color: #555; }
+  .popup label { display: block; margin-top: 10px; font-weight: 600; }
+  .popup .in { margin-top: 4px; padding: 6px; border: 1px solid #767676; border-radius: 2px; font-weight: 400; color: #777; }
+  .popup .row { display: flex; gap: 8px; margin-top: 12px; }
+  .popup .b { flex: 1; text-align: center; padding: 7px; border-radius: 4px; background: #e8532b; color: #fff; }
+  .popup .b.s { background: #e4e4e4; color: #222; }
+  .popup .ok { margin: 10px 0 0; color: #2e9d4f; }
+
+  .caption { position: absolute; left: 24px; bottom: 24px; background: rgba(0,0,0,.65); padding: 10px 16px;
+    border-radius: 8px; font-size: 18px; font-weight: 600; }
+</style>
+</head>
+<body>
+  <div class="bar"><span class="logo">Video site (example)</span><div class="search">Search</div></div>
+
+  <div class="grid">
+    <div class="card"><div class="thumb g1"><span class="time">12:04</span></div>
+      <div class="row"><div class="avatar"></div><div><div class="t">Relaxing ambient mix for focus</div><div class="m">Example Channel · 1.2M views</div></div></div></div>
+    <div class="card"><div class="thumb g2"><span class="w2g">Added</span><span class="time">8:41</span></div>
+      <div class="row"><div class="avatar"></div><div><div class="t">Top 10 travel destinations</div><div class="m">Example Channel · 340K views</div></div></div></div>
+    <div class="card"><div class="thumb g3"><span class="time">22:16</span></div>
+      <div class="row"><div class="avatar"></div><div><div class="t">Cooking pasta from scratch</div><div class="m">Example Channel · 89K views</div></div></div></div>
+    <div class="card"><div class="thumb g4"><span class="time">5:30</span></div>
+      <div class="row"><div class="avatar"></div><div><div class="t">Live concert highlights</div><div class="m">Example Channel · 2.4M views</div></div></div></div>
+    <div class="card"><div class="thumb g5"><span class="w2g idle">+ W2G</span><span class="time">15:52</span></div>
+      <div class="row"><div class="avatar"></div><div><div class="t">Retro game speedrun</div><div class="m">Example Channel · 610K views</div></div></div></div>
+    <div class="card"><div class="thumb g6"><span class="time">3:18</span></div>
+      <div class="row"><div class="avatar"></div><div><div class="t">Short film: The lighthouse</div><div class="m">Example Channel · 51K views</div></div></div></div>
+  </div>
+
+  <div class="popup">
+    <h1>YouTube to W2G</h1>
+    <p class="room">Active room: m9deyxs6…</p>
+    <label>W2G API key<div class="in">•••••• saved (leave blank to keep)</div></label>
+    <label>Room streamkey or URL<div class="in">https://w2g.tv/room/?room_id=…</div></label>
+    <div class="row"><div class="b">Save</div><div class="b s">Test connection</div></div>
+    <p class="ok">Saved.</p>
+  </div>
+
+  <div class="caption">Hover a video, click + W2G, and it lands in your Watch2Gether playlist</div>
+</body>
+</html>
