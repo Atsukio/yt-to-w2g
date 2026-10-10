@@ -20,7 +20,7 @@ The extension does not check whether a video is already in the playlist. The W2G
 - The W2G API has no documented way to read a playlist, and the `sync_update` response bodies are undocumented. Success is judged by HTTP status only.
 - "Test connection" can't validate the API key (every documented endpoint writes); it confirms the room page is reachable.
 - YouTube's markup changes often; selectors live in `content/adapters/youtube.js`.
-- The player button sits top-left and may overlap YouTube's own overlays (e.g. the live/ad badges).
+- The button appears on preview thumbnails only, not on the video player. It sits top-left and may overlap YouTube's own overlays (e.g. live badges).
 - v1 supports YouTube only. To add a site, add an adapter in `content/adapters/`, list it in the manifest content scripts, and extend `lib/ids.js`.
 
 ## License

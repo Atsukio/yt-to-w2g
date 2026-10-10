@@ -5,24 +5,10 @@
   name: 'youtube',
   matches: (loc) => /(^|\.)youtube\.com$/.test(loc.hostname),
 
-  // Thumbnails (old + new renderers), watch-page player, Shorts player.
-  targetSelector: [
-    'ytd-thumbnail',
-    'yt-thumbnail-view-model',
-    '#movie_player',
-    'ytd-reel-video-renderer',
-  ].join(','),
+  // Preview thumbnails only (old + new renderers), not the watch-page or Shorts players.
+  targetSelector: 'ytd-thumbnail, yt-thumbnail-view-model',
 
   getVideo(target) {
-    const isPlayer = target.id === 'movie_player' || target.tagName === 'YTD-REEL-VIDEO-RENDERER';
-    if (isPlayer) {
-      // The player always shows whatever the page URL points at.
-      const title = target.tagName === 'YTD-REEL-VIDEO-RENDERER'
-        ? target.querySelector('h2, .yt-shorts-video-title-view-model')?.textContent
-        : document.title.replace(/^\(\d+\)\s*/, '').replace(/\s*-\s*YouTube$/, '');
-      return { url: location.href, title: clean(title) };
-    }
-
     const link = target.querySelector('a[href*="/watch?v="], a[href*="/shorts/"], a[href*="youtu.be/"]')
       || target.closest('a[href*="/watch?v="], a[href*="/shorts/"]');
     if (!link) return null;
