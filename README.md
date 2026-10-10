@@ -29,3 +29,7 @@ Videos are matched by canonical ID (`yt:VIDEOID`), so `watch?v=`, `youtu.be/`, `
 - YouTube's markup changes often; selectors live in `content/adapters/youtube.js`.
 - The player button sits top-left and may overlap YouTube's own overlays (e.g. the live/ad badges).
 - v1 supports YouTube only. To add a site, add an adapter in `content/adapters/`, list it in the manifest content scripts, and extend `lib/ids.js`.
+
+## License
+
+MIT - see [LICENSE](LICENSE).
