@@ -1,0 +1,13 @@
+body { width: 300px; margin: 0; padding: 14px; font: 13px/1.4 system-ui, sans-serif; color: #222; }
+h1 { font-size: 16px; margin: 0 0 6px; }
+label { display: block; margin-top: 10px; font-weight: 600; }
+input { display: block; width: 100%; box-sizing: border-box; margin-top: 4px; padding: 6px; font: inherit; }
+.row { display: flex; gap: 8px; margin-top: 12px; }
+button { flex: 1; padding: 7px; border: 0; border-radius: 4px; background: #e8532b; color: #fff; font: inherit; cursor: pointer; }
+button.secondary { background: #e4e4e4; color: #222; }
+button.wide { width: 100%; margin-top: 8px; }
+.room { margin: 0; color: #555; word-break: break-all; }
+.muted { color: #777; font-size: 12px; }
+#status { margin: 10px 0 0; }
+#status.error { color: #c0392b; }
+#status.ok { color: #2e9d4f; }
