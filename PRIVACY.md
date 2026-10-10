@@ -9,7 +9,7 @@ YouTube to W2G is a browser extension that adds YouTube videos to a Watch2Gether
 - They are stored only in your browser using `chrome.storage.local`. They are never sent to the extension author or any analytics service.
 
 ## What the extension sends
-- When you click **+ W2G**, the extension sends the video's URL, title and thumbnail address, together with your API key, to the Watch2Gether API (`api.w2g.tv`) to add the video to your room's playlist.
+- When you click the **W** button, the extension sends the video's URL, title and thumbnail address, together with your API key, to the Watch2Gether API (`api.w2g.tv`) to add the video to your room's playlist.
 - If a video's title can't be read from the page, the extension asks YouTube's public oEmbed service (`youtube.com/oembed`) for it. Only the video URL is sent.
 - **Test connection** loads your room page on `w2g.tv`.
 - Requests go only to those services. Their own privacy policies apply to how they handle the data.

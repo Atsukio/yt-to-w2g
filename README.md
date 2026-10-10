@@ -1,6 +1,6 @@
 # YouTube to W2G
 
-Hover a YouTube video, click **+ W2G**, and it's added to your Watch2Gether room's playlist.
+Hover a YouTube video, click the **W** button, and it's added to your Watch2Gether room's playlist.
 
 ## Get your W2G API key
 1. Log in at <https://w2g.tv>.

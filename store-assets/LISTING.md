@@ -10,10 +10,10 @@ Hover a YouTube video and add it to your Watch2Gether room playlist with one cli
 Productivity (alternative: Social & Communication)
 
 ## Detailed description
-YouTube to W2G adds a small "+ W2G" button to videos on YouTube. Click it and the video is added to the playlist of the Watch2Gether room you've set up - no copying links, no switching tabs.
+YouTube to W2G adds a small "W" button to videos on YouTube. Click it and the video is added to the playlist of the Watch2Gether room you've set up - no copying links, no switching tabs.
 
 How it works
-- Hover a video thumbnail on YouTube and click "+ W2G".
+- Hover a video thumbnail on YouTube and click the "W" button.
 - The video, with its title and thumbnail, is added to your room's playlist.
 - The button shows whether it worked, or what went wrong.
 
@@ -34,7 +34,7 @@ Add the YouTube video the user clicks on to the playlist of their chosen Watch2G
 - **Host permission https://api.w2g.tv/\***: sends the add-to-playlist request to the Watch2Gether API.
 - **Host permission https://w2g.tv/\***: the "Test connection" button loads the user's room page (which may redirect within w2g.tv) to confirm it exists.
 - **Host permission https://www.youtube.com/oembed\***: looks up a video's title when it can't be read from the page.
-- **Content script on https://www.youtube.com/\***: shows the "+ W2G" button on video thumbnails and reads the clicked video's link and title.
+- **Content script on https://www.youtube.com/\***: shows the "W" button on video thumbnails and reads the clicked video's link and title.
 - **Remote code**: none. All code is in the package.
 
 ## Privacy policy URL

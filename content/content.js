@@ -4,30 +4,39 @@
 
   const MARK = 'data-w2g-injected';
   const RESULT_MS = 3000; // how long the result message stays before resetting
+  // Two-tone "W" mark with a "+" while idle; a text label replaces the "+" while a result is displayed.
+  const ICON = `<svg viewBox="0 0 36 24" width="30" height="20" fill="none" stroke-width="3.4"
+    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path class="plus" d="M6 7.5v9M1.5 12h9" stroke="#fff" stroke-width="2.6"/>
+    <g transform="translate(12 0)"><path d="M3 5l4.5 14L12 9" stroke="#FDBD00"/><path d="M12 9l4.5 10L21 5" stroke="#E8EDF4"/></g></svg>`;
   const STYLE = `
     :host { all: initial; position: absolute; top: 8px; left: 8px; z-index: 2147483647; display: none; }
-    button { all: initial; font: 600 12px/1 Arial, sans-serif; color: #fff; background: #e8532b;
-      padding: 6px 9px; border-radius: 4px; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,.5); }
-    button:hover { background: #ff6a40; }
+    /* Mirrors YouTube's own thumbnail overlay buttons (Watch later etc.). */
+    button { all: initial; box-sizing: border-box; display: inline-flex; align-items: center; gap: 6px;
+      height: 28px; padding: 0 6px; font: 500 12px/1 Roboto, Arial, sans-serif; color: #fff;
+      background: rgba(0,0,0,.6); border-radius: 4px; cursor: pointer; }
+    button:hover { background: rgba(0,0,0,.8); }
+    span { display: none; padding-right: 4px; }
+    button:not([data-state="idle"]) .plus { display: none; }
     button[data-state="loading"] { opacity: .7; cursor: wait; }
-    button[data-state="added"] { background: #2e9d4f; }
-    button[data-state="error"] { background: #c0392b; }
+    button[data-state="added"] { outline: 2px solid #2e9d4f; outline-offset: -2px; }
+    button[data-state="error"] { outline: 2px solid #c0392b; outline-offset: -2px; }
+    button[data-state="loading"] span, button[data-state="added"] span, button[data-state="error"] span { display: inline; }
   `;
-  const LABELS = {
-    idle: '+ W2G', loading: '…', added: 'Added', error: 'Error',
-  };
+  const LABELS = { idle: '', loading: '…', added: 'Added', error: 'Error' };
 
   function createButton(target) {
     const host = document.createElement('div');
     const root = host.attachShadow({ mode: 'closed' });
-    root.innerHTML = `<style>${STYLE}</style><button type="button"></button>`;
+    root.innerHTML = `<style>${STYLE}</style><button type="button">${ICON}<span></span></button>`;
     const btn = root.querySelector('button');
+    const label = root.querySelector('span');
     let timer;
 
     const setState = (state, title = '') => {
       btn.dataset.state = state;
-      btn.textContent = LABELS[state];
-      btn.title = title;
+      label.textContent = LABELS[state];
+      btn.title = title || (state === 'idle' ? 'Add to W2G' : '');
     };
     setState('idle');
 
