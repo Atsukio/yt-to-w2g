@@ -1,5 +1,8 @@
 # YouTube to W2G
 
+> **This project has been merged into [Everything for YouTube](https://github.com/Atsukio/clean-subs-for-youtube) and is now archived.**
+> The W2G button lives on there as an optional feature (off by default), alongside other YouTube tools, with every feature switchable from the extension popup. Please use that repo for new releases, issues and updates.
+
 Hover a YouTube video, click the **W** button, and it's added to your Watch2Gether room's playlist.
 
 ## Get your W2G API key
